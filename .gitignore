@@ -3,3 +3,5 @@
 *.jpg
 *.csv
 *.ini
+*.pt
+*.txt
