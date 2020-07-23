@@ -1,8 +1,8 @@
 * For task 1, to train the model and create masks for each dataset, run the following command line:
-python --dataset_name <name_of_dataset> --epochs <number_of_epochs>
+python main.py --dataset_name <name_of_dataset> --epochs <number_of_epochs>
 
 * For example, to train the model and create masks for DIC-C2DH-HeLa using 100 epochs, run the following command line:
-python --dataset_name DIC-C2DH-HeLa --epochs 100
+python main.py --dataset_name DIC-C2DH-HeLa --epochs 100
 
 NOTE: 
 * to make sure the model runs correctly first, try number of epochs = 1. 
