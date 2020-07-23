@@ -208,7 +208,6 @@ class Model:
             # logging
             logs = {'epoch': epoch_idx,
                     'time': epoch_end - train_start,
-                    'memory': torch.cuda.memory_allocated(),
                     **val_logs, **train_logs}
             logger.log(logs)
             logger.to_csv(os.path.join(self.checkpoint_folder, 'logs.csv'))
