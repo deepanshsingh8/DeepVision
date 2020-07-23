@@ -5,6 +5,9 @@
 	- output (as per downloaded from Google Drive)
 	- data (as per downloaded from Google Drive)
 	- model	(as an empty folder)
+		- DIC-C2DH-HeLa	(as an empty folder)
+		- Fluo-N2DL-HeLa (as an empty folder)
+		- PhC-C2DL-PSC	(as an empty folder)
 
 * to train the model and create masks for each dataset, run the following command line (after cd into folder 'code'):
 python main.py --dataset_name <name_of_dataset> --epochs <number_of_epochs>
