@@ -5,7 +5,6 @@ from torch.nn.modules.loss import _WeightedLoss
 
 EPSILON = 1e-32
 
-
 class LogNLLLoss(_WeightedLoss):
     __constants__ = ['weight', 'reduction', 'ignore_index']
 
@@ -20,20 +19,19 @@ class LogNLLLoss(_WeightedLoss):
                              ignore_index=self.ignore_index)
 
 
-# def classwise_iou(output, gt):
-#     """
-#     Args:
-#         output: torch.Tensor of shape (n_batch, n_classes, image.shape)
-#         gt: torch.LongTensor of shape (n_batch, image.shape)
-#     """
-#     print('output.shape',output.shape)
-#     dims = (0, *range(2, len(output.shape)))
-#     gt = torch.zeros_like(output).scatter_(1, gt[:, None, :], 1)
-#     intersection = output*gt
-#     union = output + gt - intersection
-#     classwise_iou = (intersection.sum(dim=dims).float() + EPSILON) / (union.sum(dim=dims) + EPSILON)
+def classwise_iou(output, gt):
+    """
+    Args:
+        output: torch.Tensor of shape (n_batch, n_classes, image.shape)
+        gt: torch.LongTensor of shape (n_batch, image.shape)
+    """
+    dims = (0, *range(2, len(output.shape)))
+    gt = torch.zeros_like(output).scatter_(1, gt[:, None, :], 1)
+    intersection = output*gt
+    union = output + gt - intersection
+    classwise_iou = (intersection.sum(dim=dims).float() + EPSILON) / (union.sum(dim=dims) + EPSILON)
 
-#     return classwise_iou
+    return classwise_iou
 
 
 def classwise_f1(output, gt):
@@ -81,16 +79,11 @@ def make_weighted_metric(classwise_metric):
             # normalizing weights
             weights /= torch.sum(weights)
 
-        classwise_scores = classwise_metric(output, gt).cpu()
+        classwise_scores = classwise_metric(output, gt)
 
         return (classwise_scores * weights).sum().item()
 
     return weighted_metric
-
-
-# jaccard_index = make_weighted_metric(classwise_iou)
-f1_score = make_weighted_metric(classwise_f1)
-
 
 # if __name__ == '__main__':
 #     output, gt = torch.zeros(3, 2, 5, 5), torch.zeros(3, 5, 5).long()
