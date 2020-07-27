@@ -142,7 +142,7 @@ class ImageToImage2D(Dataset):
         # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # print('image.shape in IMtoIM2d', image.shape)
         # read mask image
-        mask = io.imread(os.path.join(self.output_path, image_filename))
+        mask = cv2.imread(os.path.join(self.output_path, image_filename), -1)
         # print('mask.shape in IMtoIM2d', mask.shape)
         # correct dimensions if needed
         image, mask = correct_dims(image, mask)
