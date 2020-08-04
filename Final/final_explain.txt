@@ -1,0 +1,68 @@
+Cell 1 - imports
+
+Cell 2 - segmentation try 1 with supporting functions 
+	(returns original image with boxes, thresholded image with boxes and points of interest used in watershed)
+
+cell 3 - segmentation try 2
+
+cell 4 - segmentation try 3
+	(returns thresholded frame)
+
+cell 5 - find centroid used in segmentation try 1
+
+cell 6 - tracking class
+
+cell 7 - draw_line() to simply draw trajectory path
+
+cell 8 - Main
+
+4 sections
+
+Uncomment any one of the starting 3 to try out segmentation. Try 2 still in progress.
+
+section 4 - use of tracking class.
+
+
+
+Tracking class explanation
+4 main sections
+
+init() - parameters 
+	objectid - start with 1
+	disappeared counter for deregistering cell against maxdisappeared (set to 10)
+
+register() 
+	register cell and initialise speed time distance info
+
+deregister()
+	deregister object id for later use
+
+update() -  control flow as follows
+
+	if 0 centroids provided in present frame, increases disappeared counter and deregister if exceeds maxdisappeared
+	
+	if 0 objects being tracked in previous frame, register all objects
+
+	if objects being tracked in previous frame, take distance between centres in N - 1 and N frame
+	(objectcentroids correspond to centroids in N - 1 frame)
+	(inputcentroids correspond to centroids in N frame)
+
+	create usedrows and usedcols set to mark cells tagged as same in consecutive frames
+	(row correspond to objectCentroids)
+	(col correspond to inputCentroids)
+	Explanation: If row and col not observed.......transfer object id from row(objectCentroids) to col(inputCentroids) and initialize dissapearing counter
+	
+	2 conditions arise:	[D.shape[0] >= D.shape[1]]
+	if objectcentroids > = input centroids. We look for dissapearing cells, increase counter and check for deregister
+
+	If objectCentroids < input centroids. We register new cells
+
+
+
+NOTE -- to run segmentation try 3. check cell 8 and make sure order while plotting is (int(centroid[0]),int(centroid[1]))
+	ie. cv2.putText and cv2.circle
+	variable - frame
+	
+	to run segmentation try 1. check cell 8 and make sure order while plotting is (int (centroid[1]), int(centroid[0]))
+	ie. cv2.putText and cv2.circle
+	variable - segmentation_try_1_img
