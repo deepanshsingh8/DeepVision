@@ -271,8 +271,6 @@ def threshold_and_store(predictions,
                         step=4,
                         border=0):
 
-    print(predictions.shape)
-    print(input_images.shape)
     viz_path = res_path.replace('_RES', '_VIZ')
 
     for i in range(predictions.shape[0]):
@@ -334,7 +332,7 @@ def predict_dataset(sequence, viz=True):
     process = threshold_and_store
 
     # load model
-    model_path = os.path.join('./models_saved', 'UNet_DIC-C2DH-HeLa.h5')
+    model_path = os.path.join('./UNet_models_saved', 'UNet_DIC-C2DH-HeLa.h5')
 
     store_path = os.path.join('../images/', dataset_name, 'Sequence '+sequence+' Masks')
     
@@ -351,9 +349,6 @@ def predict_dataset(sequence, viz=True):
     mi, ni = get_image_size(img_path)
     new_mi = get_new_value(mi)
     new_ni = get_new_value(ni)
-
-    print(mi, ni)
-    print(new_mi, new_ni)
 
     input_img = load_images(img_path,
                             new_mi=new_mi,
@@ -379,6 +374,3 @@ def predict_dataset(sequence, viz=True):
             erosion_size=erosion_size,
             step=STEP,
             border=BORDER)
-
-if __name__ == "__main__":
-    predict_dataset(3)
