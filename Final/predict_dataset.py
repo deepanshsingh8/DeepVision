@@ -310,6 +310,9 @@ def threshold_and_store(predictions,
             c_rgb = cv2.cvtColor(c.astype(np.uint8), cv2.COLOR_GRAY2RGB)
 
             result = np.concatenate((m_rgb, c_rgb, overlay), 1)
+
+            cv2.imwrite('{}/t{:03d}overlay.tif'.format(viz_path, i), overlay)
+            cv2.imwrite('{}/t{:03d}o_rgb.tif'.format(viz_path, i), o_rgb)
             cv2.imwrite('{}/res_{:03d}.tif'.format(viz_path, i), result)
             cv2.imwrite('{}/markers_{:03d}.tif'.format(viz_path, i), markers.astype(np.uint8) * 16)
 
