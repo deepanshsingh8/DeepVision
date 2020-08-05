@@ -147,38 +147,6 @@ def load_images(path, cut=False, new_mi=0, new_ni=0, normalization='HE', uneven_
     print('loaded images from directory {} to shape {}'.format(path, image.shape))
     return image
 
-def postprocess_markers(img,
-                        threshold=240,
-                        erosion_size=12,
-                        circular=True,
-                        step=4):
-    """
-    erosion_size == c
-    step == h
-    threshold == tm
-    """
-
-    c = erosion_size
-    h = step
-
-    # original matlab code:
-    # res = opening(img, size); % size filtering
-    # res = hconvex(res, h) == h; % local contrast filtering
-    # res = res & (img >= t); % absolute intensity filtering
-
-    if circular:
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (c, c))
-        markers = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
-        new_m = (hconvex(markers, h) == h).astype(np.uint8)
-        glob_f = ((markers > threshold).astype(np.uint8) * new_m)
-
-    # label connected components
-    idx, markers = cv2.connectedComponents(glob_f)
-
-    # print(threshold, c, circular, h)
-    return idx, markers
-
-
 # postprocess markers
 def postprocess_markers2(img, threshold=240, erosion_size=12, circular=False, step=4):
 
@@ -332,7 +300,6 @@ def predict_dataset(sequence, viz=False):
     CIRCULAR = False
     STEP = 0
     BORDER = 15
-    process = threshold_and_store
 
     # load model
     model_path = os.path.join('./UNet_models_saved', 'UNet_DIC-C2DH-HeLa.h5')
@@ -367,7 +334,7 @@ def predict_dataset(sequence, viz=False):
     org_img = load_images(img_path)
     pred_img = pred_img[:, :mi, :ni, :]
 
-    process(pred_img,
+    threshold_and_store(pred_img,
             org_img,
             store_path,
             thr_markers=MARKER_THRESHOLD,
