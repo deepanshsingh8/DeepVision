@@ -1,7 +1,6 @@
 *.tif
 *.png
 *.jpg
-*.csv
 *.ini
 *.pt
 *.pyc
