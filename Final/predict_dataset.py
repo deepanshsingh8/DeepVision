@@ -317,7 +317,7 @@ def threshold_and_store(predictions,
             cv2.imwrite('{}/markers_{:03d}.tif'.format(viz_path, i), markers.astype(np.uint8) * 16)
 
 
-def predict_dataset(sequence, viz=True):
+def predict_dataset(sequence, viz=False):
     """
     reads images from the path and converts them to the np array
     """
