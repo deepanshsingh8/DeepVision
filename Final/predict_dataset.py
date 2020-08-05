@@ -9,7 +9,7 @@ from skimage import exposure
 from skimage.morphology import watershed
 from scipy.ndimage.morphology import binary_fill_holes
 
-from models import create_model, create_model_bf
+from models import create_model
 
 BATCH_SIZE = 8
 MARKER_THRESHOLD = 240
