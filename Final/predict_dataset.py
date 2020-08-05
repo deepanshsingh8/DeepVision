@@ -263,7 +263,7 @@ def threshold_and_store(predictions,
 
 
         # store result
-        cv2.imwrite('{}/t{:03d}mask.tif'.format(res_path, i), labels.astype(np.uint8))
+        cv2.imwrite('{}/mask{:03d}.tif'.format(res_path, i), labels.astype(np.uint8))
         
         viz_m = np.absolute(m - (markers > 0) * 64)
 
