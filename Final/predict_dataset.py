@@ -308,13 +308,13 @@ def predict_dataset(sequence, viz=False):
     # load model
     model_path = os.path.join('./UNet_models_saved', 'UNet_DIC-C2DH-HeLa.h5')
 
-    store_path = os.path.join('../images/', dataset_name, 'Sequence '+sequence+' Masks')
+    store_path = os.path.join('C:/Users/Deepansh/Desktop/COMP 9517/GROUP PROJECT/images/', dataset_name, 'Sequence '+sequence+' Masks')
     
     if not os.path.isdir(store_path):
         os.mkdir(store_path)
         print('directory {} was created'.format(store_path))
 
-    img_path = os.path.join('../images/', dataset_name, 'Sequence '+sequence)
+    img_path = os.path.join('C:/Users/Deepansh/Desktop/COMP 9517/GROUP PROJECT/images/', dataset_name, 'Sequence '+sequence)
 
     if not os.path.isdir(img_path):
         print('given name of dataset or the sequence is not valid')
