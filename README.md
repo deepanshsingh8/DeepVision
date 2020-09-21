@@ -1,2 +1,0 @@
-# DeepVision
-Computer Vision Team
